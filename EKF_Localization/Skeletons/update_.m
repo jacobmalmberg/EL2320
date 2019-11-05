@@ -12,6 +12,13 @@
 %           sigma_bar(t)    3X3
 function [mu_bar, sigma_bar] = update_(mu_bar, sigma_bar, H_bar, S_bar, nu_bar)
 
-        % YOUR IMPLEMENTATION %
+        
+        K = sigma_bar*H_bar'*inv(S_bar);
+        mu_bar= mu_bar+K*nu_bar;
+        I = eye(size(K*H_bar));
+        sigma_bar= (I-K*H_bar)*sigma_bar;
+               
+        
+        
 
 end

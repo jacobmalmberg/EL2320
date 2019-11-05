@@ -17,5 +17,28 @@ function [c, outlier, nu, S, H] = associate(mu_bar, sigma_bar, z_i)
     global map % map | 2Xn
     
     % YOUR IMPLEMENTATION %
-
+    
+    N = size(map,2); % no landmarks
+    H = zeros(2,3,N);
+    S = zeros(2,2,N);
+    nu = zeros(2,N);
+    psi = zeros(1,N);
+    
+    N;
+    for j=1:N
+        z_j = observation_model(mu_bar, j);
+        H(:,:,j) = jacobian_observation_model(mu_bar, j, z_j);
+        S(:,:,j) = H(:,:,j)*sigma_bar*H(:,:,j)' + Q;
+        nu(:,j) = z_i - z_j;
+        nu(2,j) = mod(nu(2,j) + pi, 2*pi) - pi;
+        psi(j) = det(2*pi*S(:,:,j))^(-1/2)*exp(-(1/2)*nu(:,j)'*inv(S(:,:,j))*nu(:,j));
+    end
+    [~, c] = max(psi);
+    
+    %outlier = nu(:,j)'*inv(S(:,:,j))*nu(:,j) >= lambda_m;
+    %check if Mahahahahlobis distance is higher than threshold
+    outlier = nu(:,c)'*inv(S(:,:,c))*nu(:,c) >= lambda_m;
+    Q
+    
+    
 end

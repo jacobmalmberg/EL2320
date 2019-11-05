@@ -13,5 +13,9 @@
 function [mu, sigma] = batch_update(mu_bar, sigma_bar, H_bar, Q_bar, nu_bar)
 
         % YOUR IMPLEMENTATION %
-
+         K = sigma_bar*H_bar'*inv((H_bar*sigma_bar*(H_bar)' + Q_bar));
+         mu = mu_bar + K*nu_bar;
+         KH_bar = K*H_bar;
+         I=eye(size(KH_bar));
+         sigma = (I - KH_bar)*sigma_bar;
 end

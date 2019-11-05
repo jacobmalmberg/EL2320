@@ -11,6 +11,12 @@ function H = jacobian_measurement_model(x, j, z_j)
 
     global map % map | 2Xn for n landmarks
 
-    % YOUR IMPLEMENTATION %
-
+    H = zeros(2,3);
+    H(1,1) = ((x(1) - map(1,j)) / z_j(1));
+    H(2,1) = -((x(2) - map(2,j)) / (z_j(1)^2));
+    H(1,2) = ((x(2) - map(2,j)) / z_j(1));
+    H(2,2) = ((x(1) - map(1,j)) / (z_j(1)^2));
+    H(1,3) = 0;
+    H(2,3) = -1;
+   
 end
