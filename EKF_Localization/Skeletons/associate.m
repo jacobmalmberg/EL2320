@@ -38,7 +38,6 @@ function [c, outlier, nu, S, H] = associate(mu_bar, sigma_bar, z_i)
     %outlier = nu(:,j)'*inv(S(:,:,j))*nu(:,j) >= lambda_m;
     %check if Mahahahahlobis distance is higher than threshold
     outlier = nu(:,c)'*inv(S(:,:,c))*nu(:,c) >= lambda_m;
-    Q
     
     
 end
